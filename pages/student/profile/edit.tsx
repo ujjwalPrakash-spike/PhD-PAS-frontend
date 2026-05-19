@@ -11,14 +11,18 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
 import Meta from "@components/Meta";
 import studentRequest, { Student } from "@callbacks/student/student";
 import useStore from "@store/store";
-import { Branches, StagesofPhD, func } from "@components/Utils/matrixUtils";
-import { getId, getProgram, getDepartment } from "@components/Parser/parser";
+import {
+  Branches,
+  StagesofPhD,
+  funcDepartmentWise,
+} from "@components/Utils/matrixUtils";
+import { getDepartment, getProgram } from "@components/Parser/parser";
 
 function ProfileEdit() {
   const [StudentData, setStudentData] = useState<Student>({ ID: 0 } as Student);
@@ -38,9 +42,6 @@ function ProfileEdit() {
   const watchDisability = watch("disability");
   const watchDepartment = watch("department");
   const watchStageOfPhd = watch("stage_of_phd");
-
-  const [dept, setDept] = useState<any>("");
-  // const [deptSec, setDeptSec] = useState<any>("");
 
   const { token } = useStore();
   const router = useRouter();
@@ -62,7 +63,9 @@ function ProfileEdit() {
         stage_of_phd: student.stage_of_phd,
         gender: student.gender,
         personal_email: student.personal_email,
-        dob: student.dob ? new Date(student.dob).toISOString().split("T")[0] : "",
+        dob: student.dob
+          ? new Date(student.dob).toISOString().split("T")[0]
+          : "",
         phone: student.phone,
         alternate_phone: student.alternate_phone,
         whatsapp_number: student.whatsapp_number,
@@ -82,19 +85,18 @@ function ProfileEdit() {
         friend_name: student.friend_name,
         friend_phone: student.friend_phone,
         disability: student.disability,
-        gate_score: student.gate_score, 
-        jam_score: student.jam_score,
-        net_score: student.net_score,
       });
     };
     fetch();
   }, [token, reset]);
 
   const onSubmit = async (data: Student) => {
-    const dept = getValues("department") as keyof typeof funcDepartmentWise;
+    const selectedDept = getValues(
+      "department"
+    ) as keyof typeof funcDepartmentWise;
 
     const program_department_id =
-      funcDepartmentWise[dept as keyof typeof funcDepartmentWise];
+      funcDepartmentWise[selectedDept as keyof typeof funcDepartmentWise];
 
     const response = await studentRequest.update(token, {
       ...data,
@@ -234,10 +236,13 @@ function ProfileEdit() {
                   >
                     <Select
                       value={watchDepartment || ""}
-                      {...register("department", { required: "Department is required" })}
+                      {...register("department", {
+                        required: "Department is required",
+                      })}
                       onChange={(e) => {
-                        setValue("department", e.target.value, { shouldValidate: true });
-                        setDept(e.target.value);
+                        setValue("department", e.target.value, {
+                          shouldValidate: true,
+                        });
                       }}
                     >
                       <MenuItem value="" />
@@ -286,12 +291,10 @@ function ProfileEdit() {
                       required: "Stage of PhD is required",
                     })}
                     onChange={(e) => {
-                      setValue("stage_of_phd", e.target.value, { shouldValidate: true });
-                      setDept(e.target.value);
+                      setValue("stage_of_phd", e.target.value, {
+                        shouldValidate: true,
+                      });
                     }}
-                    // onChange={(e) => {
-                    //   setDept(e.target.value as string);
-                    // }}
                   >
                     <MenuItem value="" />
                     {/* <MenuItem value="NA">None</MenuItem> */}
@@ -623,8 +626,8 @@ function ProfileEdit() {
 
                 <Grid item xs={12} sm={6}>
                   <p>GATE Score</p>
-                  <TextField  
-                    fullWidth 
+                  <TextField
+                    fullWidth
                     type="number"
                     id="gatescore"
                     variant="standard"
@@ -633,17 +636,13 @@ function ProfileEdit() {
                     {...register("gate_score", {
                       required: "GATE Score is required",
                       setValueAs: (value) => parseFloat(value),
-                      validate: (value) => {
-                        const score = parseFloat(value.toString());
-                        return true;
-                      },
                     })}
                   />
                 </Grid>
-         <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <p>Jam Score</p>
-                  <TextField  
-                    fullWidth 
+                  <TextField
+                    fullWidth
                     type="number"
                     id="jamscore"
                     variant="standard"
@@ -652,17 +651,13 @@ function ProfileEdit() {
                     {...register("jam_score", {
                       required: "JAM Score is required",
                       setValueAs: (value) => parseFloat(value),
-                      validate: (value) => {
-                        const score = parseFloat(value.toString());
-                        return true;
-                      },
                     })}
                   />
                 </Grid>
-  
-  <Grid item xs={12} sm={6}>
+
+                <Grid item xs={12} sm={6}>
                   <p>NET Score</p>
-                  <TextField  
+                  <TextField
                     fullWidth
                     type="number"
                     id="netscore"
@@ -672,20 +667,9 @@ function ProfileEdit() {
                     {...register("net_score", {
                       required: "NET Score is required",
                       setValueAs: (value) => parseFloat(value),
-                      validate: (value) => {
-                        const score = parseFloat(value.toString());
-                        return true;
-                      },
                     })}
                   />
                 </Grid>
-
-
-
-
-
-
-
 
                 <Grid item xs={12} sm={6}>
                   <p>Current Address</p>
@@ -783,7 +767,6 @@ function ProfileEdit() {
                     )}
                   </FormControl>
                 </Grid>
-                
               </Grid>
             </Card>
           </Stack>

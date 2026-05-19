@@ -10,7 +10,7 @@ import {
 import { errorNotification, successNotification } from "@callbacks/notifcation";
 
 export interface Student {
- ID: number;
+  ID: number;
   roll_no: string;
   name: string;
   program: string;

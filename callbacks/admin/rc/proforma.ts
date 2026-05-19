@@ -32,7 +32,7 @@ export interface ProformaType {
   tentative_job_location: string;
   job_description: string;
   cost_to_company: string;
- cost_to_company_foreign: string;
+  cost_to_company_foreign: string;
   package_details: string;
   bond_details: string;
   bond: boolean;

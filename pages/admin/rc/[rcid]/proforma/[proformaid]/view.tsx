@@ -29,7 +29,6 @@ function View() {
   const rid = (rcid || "").toString();
   const ID = (PID || "").toString();
   const [ctc, setCtc] = useState("");
-    const [cost_to_company_foreign, setCtcForeign] = useState("");
   const [jd, setJd] = useState("");
   const [pd, setPd] = useState("");
   const [isFetched, setisFetched] = useState(false);
@@ -46,8 +45,7 @@ function View() {
         let response2 = await eventRequest.getAll(token, rid, ID);
         setRow2(response2);
         setCtc(response.cost_to_company);
-        setCtcForeign(response.cost_to_company_foreign);
-        
+
         setJd(response.job_description);
         setPd(response.package_details);
         setisFetched(true);
@@ -131,7 +129,13 @@ function View() {
             </Grid>
             <Grid item xs={12} md={6} key="ctcforeign">
               <h3>Cost to Company (Foreign Currency)</h3>
-              {isFetched && <RichText onChange={setCtcForeign} readOnly value={row.cost_to_company_foreign} />}
+              {isFetched && (
+                <RichText
+                  onChange={() => undefined}
+                  readOnly
+                  value={row.cost_to_company_foreign}
+                />
+              )}
             </Grid>
             <Grid item xs={12} md={12} key="pd">
               <h3>Package Details</h3>

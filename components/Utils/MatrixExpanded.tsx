@@ -14,32 +14,31 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import { Branches, func } from "@components/Utils/matrixUtils";
 
-function MatrixExpanded({ data }: { data: string }) {
-  // if (data?.length < 110)
-  //   return <Typography>Eligibility Matrix Not Found</Typography>;
+function MatrixExpanded({ data }: { data?: string }) {
+  const matrixData = data ?? "";
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableBody>
           {Branches.map((branch) => (
-            <TableRow>
+            <TableRow key={branch}>
               <TableCell component="th" scope="row" sx={{ fontWeight: 600 }}>
                 {branch}
               </TableCell>
               <TableCell>
                 <Table sx={{ minWidth: 650 }} aria-label="keywords table">
-                  {Object.keys(func[branch as keyof typeof func]).map(
+                  {Object.keys(func[branch as keyof typeof func] ?? {}).map(
                     (keyword) => {
-                      const temp = func[branch as keyof typeof func];
+                      const branchKeywords =
+                        func[branch as keyof typeof func] ?? {};
                       const value =
-                        func[branch as keyof typeof func][
-                          keyword as keyof typeof temp
-                        ];
+                        branchKeywords[keyword as keyof typeof branchKeywords];
+
                       return (
-                        <TableRow>
+                        <TableRow key={keyword}>
                           <TableCell>{keyword}</TableCell>
                           <TableCell>
-                            {data[value] === "1" ? (
+                            {matrixData[value] === "1" ? (
                               <CheckIcon sx={{ color: "green" }} />
                             ) : (
                               <CloseIcon sx={{ color: "red" }} />
@@ -58,5 +57,9 @@ function MatrixExpanded({ data }: { data: string }) {
     </TableContainer>
   );
 }
+
+MatrixExpanded.defaultProps = {
+  data: "",
+};
 
 export default MatrixExpanded;

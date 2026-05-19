@@ -16,8 +16,6 @@ function Step3() {
   const rid = (rcid || "").toString();
   const pid = (proformaid || "").toString();
   const { token } = useStore();
- const [ctc, changeCTC] = useState("");
-  const [cost_to_company_foreign, changeCTCforeign] = useState("");
   const [pkgDetails, changePkg] = useState("");
   const [fetchData, setFetch] = useState<ProformaType>({
     ID: 0,
@@ -61,7 +59,6 @@ function Step3() {
       const data = await proformaRequest.get(token, rid, pid);
       setFetch(data);
       reset(data);
-      changeCTC(data.cost_to_company);
       changePkg(data.package_details);
     };
     if (rid && pid) getStep3();
@@ -89,9 +86,7 @@ function Step3() {
                 style={{ minHeight: 200 }}
                 required
                 error={!!errors.cost_to_company}
-                helperText={
-                  errors.cost_to_company && "This field is required"
-                }
+                helperText={errors.cost_to_company && "This field is required"}
                 {...register("cost_to_company", { required: true })}
               />
             </FormControl>

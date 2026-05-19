@@ -5,14 +5,13 @@ import {
   FormControl,
   FormHelperText,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
   Stack,
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
 import Meta from "@components/Meta";
@@ -20,8 +19,8 @@ import AdminStudentRequest, {
   Student,
 } from "@callbacks/admin/student/adminStudent";
 import useStore from "@store/store";
-import { Branches, StagesofPhD, func } from "@components/Utils/matrixUtils";
-import { getId, getDepartment, getProgram } from "@components/Parser/parser";
+import { Branches, StagesofPhD } from "@components/Utils/matrixUtils";
+import { getDepartment, getId, getProgram } from "@components/Parser/parser";
 
 function Edit() {
   const [StudentData, setStudentData] = useState<Student>({ ID: 0 } as Student);
@@ -45,9 +44,6 @@ function Edit() {
   const watchDepartment = watch("department");
   const watchStageOfPhd = watch("stage_of_phd");
 
-  const [dept, setDept] = useState<any>("");
-  // const [deptSec, setDeptSec] = useState<string>("");
-
   const { token } = useStore();
   const router = useRouter();
   const { studentId } = router.query;
@@ -60,13 +56,14 @@ function Edit() {
         parseInt(sId, 10)
       ).catch(() => ({ ID: 0 } as Student));
       setStudentData(student);
-      setDept(getDepartment(student.program_department_id));
       reset({
         ...student,
         program: getProgram(student.program_department_id),
         department: getDepartment(student.program_department_id),
         stage_of_phd: student.stage_of_phd,
-        dob: student.dob ? new Date(student.dob).toISOString().split("T")[0] : "",
+        dob: student.dob
+          ? new Date(student.dob).toISOString().split("T")[0]
+          : "",
       });
     };
     if (router.isReady) fetch();
@@ -188,10 +185,13 @@ function Edit() {
                   >
                     <Select
                       value={watchDepartment || ""}
-                      {...register("department", { required: "Department is required" })}
+                      {...register("department", {
+                        required: "Department is required",
+                      })}
                       onChange={(e) => {
-                        setValue("department", e.target.value, { shouldValidate: true });
-                        setDept(e.target.value);
+                        setValue("department", e.target.value, {
+                          shouldValidate: true,
+                        });
                       }}
                     >
                       <MenuItem value="" />
@@ -240,12 +240,10 @@ function Edit() {
                       required: "Stage of PhD is required",
                     })}
                     onChange={(e) => {
-                      setValue("stage_of_phd", e.target.value, { shouldValidate: true });
-                      setDept(e.target.value);
+                      setValue("stage_of_phd", e.target.value, {
+                        shouldValidate: true,
+                      });
                     }}
-                  // onChange={(e) => {
-                  //   setDept(e.target.value as string);
-                  // }}
                   >
                     <MenuItem value="" />
                     {/* <MenuItem value="NA">None</MenuItem> */}
@@ -575,7 +573,6 @@ function Edit() {
                   />
                 </Grid>
 
-
                 <Grid item xs={12} sm={6}>
                   <p>JAM Score</p>
                   <TextField
@@ -647,7 +644,6 @@ function Edit() {
                     })}
                   />
                 </Grid>
-
 
                 <Grid item xs={12} sm={6}>
                   <p>Current Address</p>

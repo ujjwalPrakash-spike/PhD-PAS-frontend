@@ -55,7 +55,7 @@ function Clarification({
           minRows={3}
           variant="standard"
           {...register("message", { required: true })}
-          error={errors.message}
+          error={Boolean(errors.message)}
           helperText={errors.message && "Message is required"}
         />
         <TextField
@@ -65,7 +65,7 @@ function Clarification({
           multiline
           minRows={3}
           {...register("poc", { required: true })}
-          error={errors.poc}
+          error={Boolean(errors.poc)}
           helperText={errors.poc && "POC Details is required"}
         />
         <Stack direction="row" spacing={2} style={{ justifyContent: "center" }}>

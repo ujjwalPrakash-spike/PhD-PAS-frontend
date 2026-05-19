@@ -118,7 +118,7 @@ function Apply() {
               minRows={3}
               defaultValue={question.answer}
               variant="standard"
-              error={errors[name]}
+              error={Boolean(errors[name])}
               helperText={errors[name] && "*Required"}
               {...register(name)}
             />

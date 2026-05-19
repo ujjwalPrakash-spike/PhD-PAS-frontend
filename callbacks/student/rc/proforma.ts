@@ -50,7 +50,7 @@ const SProformaRequest = {
     instance
       .get<ProformaType>(
         `/application/rc/${rid}/proforma/${pid}`,
-        setConfig(token),
+        setConfig(token)
       )
       .then(responseBody)
       .catch((err: ErrorType) => {
@@ -67,7 +67,7 @@ const SProformaRequest = {
     instance
       .get<ProformaEvent[]>(
         `/application/rc/${rid}/proforma/${pid}/event`,
-        setConfig(token),
+        setConfig(token)
       )
       .then(responseBody)
       .catch((err: ErrorType) => {
