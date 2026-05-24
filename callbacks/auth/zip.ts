@@ -31,10 +31,10 @@ const zip = {
         if (res.status === 200) {
           successNotification(
             "Resume ziped successfully",
-            `http://placement.iitk.ac.in/cdn/zip/${res.data.filename}`
+            `https://phdplacement.iitk.ac.in/cdn/zip/${res.data.filename}`
           );
           window.open(
-            `http://phdplacement.iitk.ac.in/cdn/zip/${res.data.filename}`
+            `https://phdplacement.iitk.ac.in/cdn/zip/${res.data.filename}`
           );
           return {
             filename: res.data.filename,

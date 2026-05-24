@@ -1,17 +1,19 @@
-FROM node:alpine
+FROM node:18-alpine
 
-ENV PORT 80
+ENV PORT=80
 
-RUN apk add --no-cache bash zsh curl wget git
+RUN apk add --no-cache bash
 
-RUN mkdir -p /home/ras
 WORKDIR /home/ras
 
-RUN git config --global user.name "SPO Web Team"
-RUN git config --global user.email "pas@iitk.ac.in"
+COPY package.json package-lock.json ./
+RUN npm install
 
-RUN git clone --depth 1 https://github.com/Muragesh-24/PhD-PAS-frontend.git .
+COPY . .
+RUN npm run build
+
 EXPOSE 80
 
-# Run script
-CMD bash /home/ras/scripts/production.sh
+CMD ["npm", "start"]
+
+
