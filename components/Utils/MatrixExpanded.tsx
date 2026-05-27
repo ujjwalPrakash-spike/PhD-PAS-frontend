@@ -12,43 +12,25 @@ import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 
-import { Branches, func } from "@components/Utils/matrixUtils";
+import { funcDepartmentWise } from "@components/Utils/matrixUtils";
 
 function MatrixExpanded({ data }: { data?: string }) {
   const matrixData = data ?? "";
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="eligibility table">
         <TableBody>
-          {Branches.map((branch) => (
-            <TableRow key={branch}>
+          {Object.entries(funcDepartmentWise).map(([dept, index]) => (
+            <TableRow key={dept}>
               <TableCell component="th" scope="row" sx={{ fontWeight: 600 }}>
-                {branch}
+                {dept}
               </TableCell>
               <TableCell>
-                <Table sx={{ minWidth: 650 }} aria-label="keywords table">
-                  {Object.keys(func[branch as keyof typeof func] ?? {}).map(
-                    (keyword) => {
-                      const branchKeywords =
-                        func[branch as keyof typeof func] ?? {};
-                      const value =
-                        branchKeywords[keyword as keyof typeof branchKeywords];
-
-                      return (
-                        <TableRow key={keyword}>
-                          <TableCell>{keyword}</TableCell>
-                          <TableCell>
-                            {matrixData[value] === "1" ? (
-                              <CheckIcon sx={{ color: "green" }} />
-                            ) : (
-                              <CloseIcon sx={{ color: "red" }} />
-                            )}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    }
-                  )}
-                </Table>
+                {matrixData[index] === "1" ? (
+                  <CheckIcon sx={{ color: "green" }} />
+                ) : (
+                  <CloseIcon sx={{ color: "red" }} />
+                )}
               </TableCell>
             </TableRow>
           ))}

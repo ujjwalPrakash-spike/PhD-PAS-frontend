@@ -55,20 +55,6 @@ export const Branches = [
   "NET",
 ];
 
-export type programType = {
-  BT: number;
-  BS: number;
-  MT: number;
-  DoubleMajor: number;
-  DualA: number;
-  DualB: number;
-  DualC: number;
-  MDes: number;
-  MBA: number;
-  PhD: number;
-  MSc: number;
-  MSR: number;
-};
 
 // the new func to  interate over the departement wise recruitment
 
@@ -95,6 +81,22 @@ export const funcDepartmentWise = {
   ECO: 20,
   NET: 21,
 };
+
+export type programType = {
+  BT: number;
+  BS: number;
+  MT: number;
+  DoubleMajor: number;
+  DualA: number;
+  DualB: number;
+  DualC: number;
+  MDes: number;
+  MBA: number;
+  PhD: number;
+  MSc: number;
+  MSR: number;
+};
+
 
 export const func = {
   MSE: {
