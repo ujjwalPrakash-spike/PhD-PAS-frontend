@@ -8,7 +8,7 @@ import RichText from "@components/Editor/RichText";
 import useStore from "@store/store";
 import proformaRequest, { ProformaType } from "@callbacks/company/proforma";
 
-const ROUTE = "/company/rc/[rcId]/proforma/[proformaid]/step4";
+const ROUTE = "/company/rc/[rcid]/proforma/[proformaid]/step4";
 
 function Step3() {
   const router = useRouter();
@@ -49,7 +49,7 @@ function Step3() {
       changePkg("");
       router.push({
         pathname: ROUTE,
-        query: { rcId: rid, proformaid: pid },
+        query: { rcid: rid, proformaid: pid },
       });
     }
   };

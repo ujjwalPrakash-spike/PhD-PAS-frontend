@@ -8,7 +8,7 @@ import Meta from "@components/Meta";
 import proformaRequest, { ProformaType } from "@callbacks/company/proforma";
 import useStore from "@store/store";
 
-const ROUTE = "/admin/rc/[rcId]/proforma/[proformaid]/step3";
+const ROUTE = "/admin/rc/[rcid]/proforma/[proformaid]/step3";
 
 function Step2() {
   const [strDep, setStrDep] = useState(

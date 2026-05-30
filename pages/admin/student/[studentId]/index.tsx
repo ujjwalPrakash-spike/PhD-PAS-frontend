@@ -64,7 +64,7 @@ const info: { field: string; value: string; disabled: boolean; api_id: any }[] =
       field: "Stage of PhD",
       value: "Enter your Stage of PhD",
       disabled: false,
-      api_id: "specialization",
+      api_id: "stage_of_phd",
     },
     // {
     //   field: "Preference",

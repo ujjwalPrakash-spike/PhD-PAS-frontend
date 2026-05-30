@@ -11,7 +11,7 @@ import requestProforma, {
 } from "@callbacks/admin/rc/adminproforma";
 import requestCompany, { CompanyRc } from "@callbacks/admin/rc/company";
 
-const ROUTE = "/admin/rc/[rcId]/proforma/[proformaid]/step2";
+const ROUTE = "/admin/rc/[rcid]/proforma/[proformaid]/step2";
 function ProformaNew() {
   const [value, onChange] = useState("");
   const { token, name } = useStore();
@@ -76,7 +76,7 @@ function ProformaNew() {
       onChange("");
       router.push({
         pathname: ROUTE,
-        query: { rcId: rid, proformaid: pid },
+        query: { rcid: rid, proformaid: pid },
       });
     }
   };

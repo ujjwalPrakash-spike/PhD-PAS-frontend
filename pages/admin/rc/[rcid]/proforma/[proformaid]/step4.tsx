@@ -24,7 +24,7 @@ import requestProforma, {
 import requestCompanyHR, { HR } from "@callbacks/admin/rc/companyhr";
 import { StagesofPhD } from "@components/Utils/matrixUtils";
 
-const ROUTE = "/admin/rc/[rcId]";
+const ROUTE = "/admin/rc/[rcid]";
 function Step4() {
   const router = useRouter();
   const { rcid, proformaid } = router.query;
@@ -78,7 +78,7 @@ function Step4() {
       });
       router.push({
         pathname: `${ROUTE}/proforma`,
-        query: { rcId: rid },
+        query: { rcid: rid },
       });
     }
   };
