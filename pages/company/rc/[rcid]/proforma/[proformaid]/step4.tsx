@@ -22,7 +22,7 @@ import proformaRequest, { ProformaType } from "@callbacks/company/proforma";
 import companyRequest, { HR } from "@callbacks/company/company";
 import { StagesofPhD } from "@components/Utils/matrixUtils";
 
-const ROUTE = "/company/rc/[rcId]";
+const ROUTE = "/company/rc/[rcid]";
 
 function Step4() {
   const router = useRouter();
@@ -71,13 +71,12 @@ function Step4() {
     const res = await proformaRequest.put(token, rid, info);
     if (res) {
       reset({
-        additional_eligibility: "",
         message_for_cordinator: "",
         active_hr: "",
       });
       router.push({
         pathname: ROUTE,
-        query: { rcId: rid },
+        query: { rcid: rid },
       });
     }
   };

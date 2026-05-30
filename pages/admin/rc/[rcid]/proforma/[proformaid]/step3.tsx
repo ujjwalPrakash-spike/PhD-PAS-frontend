@@ -10,7 +10,7 @@ import requestProforma, {
   AdminProformaType,
 } from "@callbacks/admin/rc/adminproforma";
 
-const ROUTE = "/admin/rc/[rcId]/proforma/[proformaid]/step4";
+const ROUTE = "/admin/rc/[rcid]/proforma/[proformaid]/step4";
 
 function Step3() {
   const router = useRouter();
@@ -53,7 +53,7 @@ function Step3() {
       changePkg("");
       router.push({
         pathname: ROUTE,
-        query: { rcId: rid, proformaid: pid },
+        query: { rcid: rid, proformaid: pid },
       });
     }
   };
